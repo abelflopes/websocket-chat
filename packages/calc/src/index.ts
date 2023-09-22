@@ -1,4 +1,4 @@
-import { sum } from "@abelflopes/lerna-monorepo-template-sum";
+import { sum } from "@abelflopes/websocket-chat-sum";
 
 type Operator = "sum" | "sub" | "multi" | "div";
 

@@ -1,13 +1,13 @@
 {
-  "name": "@abelflopes/lerna-monorepo-template-calc",
+  "name": "@abelflopes/websocket-chat-calc",
   "private": false,
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "homepage": "https://github.com/abelflopes/lerna-monorepo-template#readme",
+  "homepage": "https://github.com/abelflopes/websocket-chat#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abelflopes/lerna-monorepo-template.git"
+    "url": "git+https://github.com/abelflopes/websocket-chat.git"
   },
   "scripts": {
     "start": "tsc -p tsconfig.build.json -w",
@@ -17,7 +17,7 @@
     "lint": "eslint . --ext ts,tsx"
   },
   "dependencies": {
-    "@abelflopes/lerna-monorepo-template-sum": "^1.0.0"
+    "@abelflopes/websocket-chat-sum": "^1.0.0"
   },
   "devDependencies": {
     "@abelflopes/eslint-config-tsr-pro": "^1.0.1",

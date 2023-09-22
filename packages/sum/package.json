@@ -1,13 +1,13 @@
 {
-  "name": "@abelflopes/lerna-monorepo-template-sum",
+  "name": "@abelflopes/websocket-chat-sum",
   "private": false,
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "homepage": "https://github.com/abelflopes/lerna-monorepo-template/src/sum#readme",
+  "homepage": "https://github.com/abelflopes/websocket-chat/src/sum#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abelflopes/lerna-monorepo-template.git"
+    "url": "git+https://github.com/abelflopes/websocket-chat.git"
   },
   "scripts": {
     "start": "tsc -p tsconfig.build.json -w",
