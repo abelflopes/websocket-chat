@@ -1,0 +1,35 @@
+{
+  "name": "@abelflopes/lerna-monorepo-template",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Monorepo PoC/Template with independent versioning for the whole project and its packages",
+  "homepage": "https://github.com/abelflopes/lerna-monorepo-template#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abelflopes/lerna-monorepo-template.git"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "start": "lerna run start --parallel --stream",
+    "build": "lerna run build",
+    "test": "lerna run test --parallel",
+    "lint": "lerna run lint --parallel",
+    "clean": "lerna run clean",
+    "todo": "npx leasot '**/**' '.**/**' -i '**/node_modules/**' -S -x",
+    "publish": "lerna publish --yes",
+    "publish2": "semantic-release"
+  },
+  "author": "Abel Lopes (@abelflopes)",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "husky": "^8.0.3",
+    "lerna": "^7.1.1",
+    "semantic-release": "^21.0.7"
+  }
+}
