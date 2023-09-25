@@ -1,0 +1,12 @@
+.root {
+  border-radius: 15px;
+  padding: 5px 10px;
+  line-height: 20px;
+  background-color: #eee;
+  color: #060606;
+  word-break: break-word;
+
+  & + & {
+    margin-top: 4px;
+  }
+}

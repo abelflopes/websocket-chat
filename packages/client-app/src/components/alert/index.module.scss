@@ -1,0 +1,17 @@
+.root {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.title {
+  display: block;
+}
+
+.error {
+  background-color: #a00;
+  color: #fff;
+}

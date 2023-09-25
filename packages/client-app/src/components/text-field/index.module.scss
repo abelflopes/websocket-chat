@@ -1,0 +1,15 @@
+.root {
+  background: #eee;
+  font: inherit;
+  border: none;
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+
+  &::placeholder {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.25);
+  }
+}

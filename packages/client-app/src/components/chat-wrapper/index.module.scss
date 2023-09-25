@@ -1,0 +1,28 @@
+.root {
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  @media (width > 480px) and (height > 550px) {
+    max-height: 500px;
+    max-width: 400px;
+
+    box-shadow:
+      0 0 60px 0 rgba(0, 0, 0, 0.3),
+      0 5px 20px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+  }
+
+  .footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
