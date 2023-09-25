@@ -6,8 +6,8 @@
     "build": "lerna run build",
     "test": "lerna run test --parallel",
     "lint": "lerna run lint --parallel",
-    "clean": "lerna run clean",
-    "todo": "npx leasot '**/**' '.**/**' -i '**/node_modules/**' -S -x"
+    "clean": "lerna run clean && rm -rf node_modules",
+    "todo": "npx leasot '*' '.*' '**/**' '.**/**' -i '**/node_modules/**' -S -x"
   },
   "author": "Abel Lopes (@abelflopes)",
   "workspaces": [
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
+    "eslint": "^8.50.0",
     "husky": "^8.0.3",
     "lerna": "^7.1.1"
   }
