@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "target": "es2016",
+    "module": "commonjs",
+    "declaration": true,
+    "noEmit": false,
+    "outDir": "./dist/lib"
+  },
+  "include": ["./src/library.ts"]
+}

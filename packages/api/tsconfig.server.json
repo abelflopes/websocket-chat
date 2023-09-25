@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "noEmit": false,
+    "outDir": "./dist/server",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "moduleDetection": "force",
+    "target": "ES2021" // Node.js 16
+  },
+  "include": ["./src/index.ts"]
+}

@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: Websocket Chat REST API
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.1 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: auth
+    description: Authentication
+  - name: user
+    description: Operations about user
+security:
+  - bearerAuth: [] 
+paths:
+  /auth/sign:
+    post:
+      security: []
+      tags: [auth, user]
+      summary: Logs in a user or registers in case of non existing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthSign'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSuccess'
+        '400':
+          description: Unable to sign in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user:
+    get:
+      tags: [user]
+      summary: Returns the information of the user self()
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '400':
+          description: Unable to return data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AuthSign:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    AuthSuccess:
+      type: object
+      required: [authToken]
+      properties:
+        authToken:
+          type: string
+    Error:
+      type: object
+      required: [error]
+      properties:
+        description:
+          type: string
+    UserInfo:
+      type: object
+      required: [id, username]
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+    User:
+      type: object
+      required: [id, username, password]
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: apiKey
+      name: Authorization
+      in: header
+      description: >-
+        Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".
+  requestBodies:
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+

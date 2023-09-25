@@ -1,0 +1,49 @@
+{
+  "name": "@abelflopes/websocket-chat-api",
+  "version": "1.0.0",
+  "main": "dist/lib/library.js",
+  "types": "dist/lib/library.d.ts",
+  "homepage": "https://github.com/abelflopes/websocket-chat/src/sum#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abelflopes/websocket-chat.git"
+  },
+  "scripts": {
+    "start": "npm-run-all --parallel start:*",
+    "start:lib": "tsc -p tsconfig.lib.json -w",
+    "start:server": "npm run build:docs && npm run build:types && ts-node-dev -P tsconfig.server.json --respawn ./src/index.ts",
+    "clean": "rm -rf dist node_modules",
+    "test": "jest",
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:spec": "redocly lint ./src/openapi.yaml",
+    "lint:code": "eslint . --ext ts,tsx",
+    "build": "npm-run-all --sequential build:*",
+    "build:types": "openapi-typescript ./src/openapi.yaml -o ./src/types/openapi.ts",
+    "build:lib": "tsc -p tsconfig.lib.json",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:docs": "redocly build-docs ./src/openapi.yaml --output=dist/docs/index.html"
+  },
+  "devDependencies": {
+    "@abelflopes/eslint-config-tsr-pro": "^1.0.1",
+    "@redocly/cli": "^1.2.0",
+    "@types/crypto-js": "4.1.2",
+    "@types/express": "4.17.17",
+    "@types/morgan": "^1.9.5",
+    "@types/uuid": "^9.0.4",
+    "eslint": "^8.49.0",
+    "npm-run-all": "^4.1.5",
+    "openapi-typescript": "^6.6.2",
+    "typescript": "^5.1.6",
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.2",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "uuid": "^9.0.1",
+    "lowdb": "^6.0.1",
+    "morgan": "^1.10.0",
+    "crypto-js": "^4.1.1"
+  }
+}
