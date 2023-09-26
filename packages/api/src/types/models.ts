@@ -7,10 +7,15 @@ export interface AuthToken {
 
 export type AuthSign = components["schemas"]["AuthSign"];
 
-export type User = components["schemas"]["User"];
-
-export type UserInfo = components["schemas"]["UserInfo"];
-
 export type ApiError = components["schemas"]["Error"];
 
 export type AuthSuccess = components["schemas"]["AuthSuccess"];
+
+export type UserPublic = components["schemas"]["User"];
+
+export type UserPrivate = UserPublic & AuthSign;
+
+export type SendMessage =
+  components["requestBodies"]["SendMessage"]["content"]["application/json"];
+
+export type Message = components["schemas"]["Message"];

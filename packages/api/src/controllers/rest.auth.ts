@@ -4,7 +4,7 @@ import * as AuthToken from "../models/auth-token";
 import type { AuthSuccess, ApiError } from "../types/models";
 import { isValidAuthSign } from "../utils/type-guards";
 
-export const register: ApiRoute<"/auth/sign"> = {
+export const authSign: ApiRoute<"/auth/sign"> = {
   endpoint: "/auth/sign",
   method: "post",
   action: async ({ body }) => {

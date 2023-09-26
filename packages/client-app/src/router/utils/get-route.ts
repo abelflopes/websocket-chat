@@ -1,5 +1,5 @@
 // Router config
-import { allRoutes, RouteIndex } from "../index";
+import { allRoutes, type RouteIndex } from "../index";
 import { requiredRoutePath } from "./required-route-path";
 
 /**
@@ -11,7 +11,9 @@ import { requiredRoutePath } from "./required-route-path";
 export const getRoute = (index: RouteIndex): string => {
   const to = requiredRoutePath(allRoutes[index]);
 
-  if (typeof to !== "string") throw new Error("Expected route path to be a string");
+  if (typeof to !== "string") {
+    throw new TypeError("Expected route path to be a string");
+  }
 
   return to;
 };

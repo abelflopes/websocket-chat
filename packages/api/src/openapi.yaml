@@ -28,6 +28,8 @@ tags:
     description: Authentication
   - name: user
     description: Operations about user
+  - name: messages
+    description: Chat messaging
 security:
   - bearerAuth: [] 
 paths:
@@ -55,6 +57,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /message:
+    post:
+      tags: [messages, user]
+      summary: Sends a chat message
+      requestBody:
+        $ref: '#/components/requestBodies/SendMessage'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Unable to send message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /user:
     get:
       tags: [user]
@@ -65,7 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserInfo'
+                $ref: '#/components/schemas/User'
         '400':
           description: Unable to return data
           content:
@@ -94,7 +115,7 @@ components:
       properties:
         description:
           type: string
-    UserInfo:
+    User:
       type: object
       required: [id, username]
       properties:
@@ -102,15 +123,15 @@ components:
           type: string
         username:
           type: string
-    User:
+    Message:
       type: object
-      required: [id, username, password]
+      required: [id, senderId, content]
       properties:
         id:
           type: string
-        username:
+        senderId:
           type: string
-        password:
+        content:
           type: string
   securitySchemes:
     bearerAuth:            # arbitrary name for the security scheme
@@ -120,12 +141,13 @@ components:
       description: >-
         Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".
   requestBodies:
-    UserArray:
-      description: List of user object
+    SendMessage:
+      required: true
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-
+            type: object
+            required: [content]
+            properties:
+              content:
+                type: string

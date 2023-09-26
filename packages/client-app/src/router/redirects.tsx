@@ -1,4 +1,3 @@
-import React from "react";
 // Router
 import { type View } from "@router/index";
 // Utils
@@ -10,6 +9,7 @@ export const home: View = {
   name: "Home",
   options: {
     path: "/",
+    // eslint-disable-next-line react/react-in-jsx-scope
     element: <ViewRedirect route={Views.chat} />,
   },
 };

@@ -1,3 +1,17 @@
+import type { Message, SendMessage } from "../types/models";
+
+interface Authenticated {
+  authToken: string;
+}
+
+interface Request {
+  type: "client-request";
+}
+
+interface Response {
+  type: "server-response";
+}
+
 export enum EventContext {
   REQUEST = "request", // Sent from client to server
   RESPONSE = "response", // Sent from server to client
@@ -5,25 +19,15 @@ export enum EventContext {
 
 export interface EventsMap {
   "chat-message": {
-    [EventContext.REQUEST]: {
-      authToken: string;
-      message: string;
-    };
-    [EventContext.RESPONSE]: {
-      userId: string;
-      message: string;
-    };
+    [EventContext.REQUEST]: Request & Authenticated & SendMessage;
+    [EventContext.RESPONSE]: Response & Message;
   };
 }
 
-export type RequestEventsMap = {
+export type EventHandlersMap = {
   [key in keyof EventsMap]: (
-    data: EventsMap[key][EventContext.REQUEST]
-  ) => void | Promise<void>;
-};
-
-export type ResponseEventsMap = {
-  [key in keyof EventsMap]: (
-    data: EventsMap[key][EventContext.RESPONSE]
+    data:
+      | EventsMap[key][EventContext.REQUEST]
+      | EventsMap[key][EventContext.RESPONSE]
   ) => void | Promise<void>;
 };

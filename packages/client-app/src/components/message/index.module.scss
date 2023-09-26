@@ -1,12 +1,48 @@
 .root {
-  border-radius: 15px;
-  padding: 5px 10px;
-  line-height: 20px;
-  background-color: #eee;
-  color: #060606;
+  background-color: var(--background-color);
+  color: var(--color);
+  margin-left: var((--margin-left));
+  margin-right: var((--margin-right));
+  border-radius: 16px;
+  padding: 8px 10px;
+  line-height: 16px;
   word-break: break-word;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
 
-  & + & {
-    margin-top: 4px;
-  }
+.received {
+  --background-color: #eee;
+  --color: #060606;
+  --margin-right: auto;
+}
+
+.sent {
+  --background-color: #37a4ba;
+  --color: #eee;
+  --margin-left: auto;
+}
+
+.join-bottom.sent {
+  border-bottom-right-radius: 0;
+}
+
+.join-top.sent {
+  border-top-right-radius: 0;
+}
+
+.join-bottom.received {
+  border-bottom-left-radius: 0;
+}
+
+.join-top.received {
+  border-top-left-radius: 0;
+}
+
+.join-top {
+  margin-top: 0;
+}
+
+.join-bottom {
+  margin-bottom: 0;
 }

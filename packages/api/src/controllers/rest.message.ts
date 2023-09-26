@@ -1,11 +1,12 @@
 import type { ApiRoute } from "../types/rest-controllers";
 import * as AuthToken from "../models/auth-token";
-import * as User from "../models/user";
+import * as Message from "../models/message";
+import { isValidSendMessage } from "../utils/type-guards";
 
-export const user: ApiRoute<"/user"> = {
-  endpoint: "/user",
-  method: "get",
-  action: async ({ headers }) => {
+export const user: ApiRoute<"/message"> = {
+  endpoint: "/message",
+  method: "post",
+  action: async ({ headers, body }) => {
     const authData = await AuthToken.validate(headers.authorization);
 
     if (!authData.authToken || Boolean(authData.error) || !authData.valid) {
@@ -13,6 +14,15 @@ export const user: ApiRoute<"/user"> = {
         status: 400,
         data: {
           description: authData.error,
+        },
+      };
+    }
+
+    if (!isValidSendMessage(body)) {
+      return {
+        status: 400,
+        data: {
+          description: "Invalid payload",
         },
       };
     }
@@ -28,23 +38,14 @@ export const user: ApiRoute<"/user"> = {
       };
     }
 
-    const user = await User.getById(userId);
-
-    if (!user) {
-      return {
-        status: 400,
-        data: {
-          description: "User not found",
-        },
-      };
-    }
+    const message = await Message.create({
+      senderId: userId,
+      content: body.content,
+    });
 
     return {
       status: 200,
-      data: {
-        id: user.id,
-        username: user.username,
-      },
+      data: message,
     };
   },
 };

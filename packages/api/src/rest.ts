@@ -3,12 +3,14 @@ import type { Express } from "express";
 import * as root from "./controllers/rest.root";
 import * as auth from "./controllers/rest.auth";
 import * as user from "./controllers/rest.user";
+import * as message from "./controllers/rest.message";
 import * as notFound from "./controllers/rest.not-found";
 
 const routes = [
   ...Object.values(root),
   ...Object.values(auth),
   ...Object.values(user),
+  ...Object.values(message),
   ...Object.values(notFound),
 ];
 

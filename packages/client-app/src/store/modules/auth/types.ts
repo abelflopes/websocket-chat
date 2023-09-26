@@ -11,6 +11,7 @@ interface Actions {
 export interface State {
   authToken: string | undefined;
   error: string | undefined;
+  loading: number;
 }
 
 export type Module = State & Actions;

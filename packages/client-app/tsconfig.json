@@ -17,6 +17,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
     /* Aliases */
     "paths": {
       "@components/*": ["./src/components/*"],
@@ -29,6 +30,6 @@
       "@root/*": ["./*"]
     }
   },
-  "include": ["src"],
+  "include": ["**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

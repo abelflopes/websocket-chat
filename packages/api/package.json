@@ -16,7 +16,7 @@
     "test": "jest",
     "lint": "npm-run-all --parallel lint:*",
     "lint:spec": "redocly lint ./src/openapi.yaml",
-    "lint:code": "eslint . --ext ts,tsx",
+    "lint:code": "tsc --noEmit && eslint . --ext ts,tsx",
     "build": "npm-run-all --sequential build:*",
     "build:types": "openapi-typescript ./src/openapi.yaml -o ./src/types/openapi.ts",
     "build:lib": "tsc -p tsconfig.lib.json",

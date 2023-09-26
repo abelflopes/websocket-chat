@@ -1,6 +1,7 @@
-import type { AuthToken, User } from "./models";
+import type { AuthToken, UserPrivate, Message } from "./models";
 
 export interface DatabaseData {
-  users: User[];
+  users: UserPrivate[];
   authTokens: AuthToken[];
+  messages: Message[];
 }

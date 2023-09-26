@@ -4,18 +4,16 @@
  * as opposite to the server instance
  */
 
-import type {
-  RequestEventsMap,
-  ResponseEventsMap,
-} from "@abelflopes/websocket-chat-api";
+import type { EventHandlersMap } from "@abelflopes/websocket-chat-api";
 import { io } from "socket.io-client";
 
 const ioSocket = io("http://localhost:3000");
 
-const on = <T extends keyof ResponseEventsMap>(
+const on = <T extends keyof EventHandlersMap>(
   event: T,
-  callback: ResponseEventsMap[T]
+  callback: EventHandlersMap[T]
 ): (() => void) => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const eventName = event as string;
 
   ioSocket.on(eventName, callback);
@@ -23,10 +21,11 @@ const on = <T extends keyof ResponseEventsMap>(
   return () => ioSocket.off(eventName, callback);
 };
 
-const emit = <T extends keyof RequestEventsMap>(
+const emit = <T extends keyof EventHandlersMap>(
   event: T,
-  ...data: Parameters<RequestEventsMap[T]>
+  ...data: Parameters<EventHandlersMap[T]>
 ): void => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const eventName = event as string;
 
   ioSocket.emit(eventName, ...data);

@@ -12,7 +12,7 @@ export const ErrorLayout = ({
   title,
   description,
   children,
-}: ErrorLayoutProps): React.ReactElement => (
+}: Readonly<ErrorLayoutProps>): React.ReactElement => (
   <main className="container">
     <h2>{title}</h2>
     <p>{description}</p>

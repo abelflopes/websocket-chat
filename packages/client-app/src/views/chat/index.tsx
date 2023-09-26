@@ -1,5 +1,5 @@
 // React
-import React from "react";
+import React, { useEffect } from "react";
 // Store
 import { Store } from "@store/index";
 // Components
@@ -10,15 +10,23 @@ import { MessagesList } from "@components/message-list";
 
 export const ChatView = (): React.ReactElement => {
   const messages = Store.messages.useData();
-  const sendMessage = Store.messages.useAdd();
+  const sendMessage = Store.messages.useSend();
+  const user = Store.user.useData();
+  const loadUser = Store.user.useLoad();
+
+  useEffect(() => {
+    void loadUser();
+  }, [loadUser]);
 
   return (
     <DefaultLayout pageRestrict="authenticated">
+      {user?.username}
+
       <ChatWrapper
         footer={
           <ChatForm
             onSend={(message) => {
-              sendMessage(message);
+              void sendMessage(message);
             }}
           />
         }

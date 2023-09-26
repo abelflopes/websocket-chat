@@ -1,8 +1,8 @@
 import { getDatabase } from "../db";
 import * as UUID from "uuid";
-import type { User } from "../types/models";
+import type { UserPrivate } from "../types/models";
 
-export async function getById(id: string): Promise<User | undefined> {
+export async function getById(id: string): Promise<UserPrivate | undefined> {
   const db = await getDatabase();
 
   const { users } = db.read();
@@ -12,7 +12,7 @@ export async function getById(id: string): Promise<User | undefined> {
 
 export async function getByUserName(
   username: string
-): Promise<User | undefined> {
+): Promise<UserPrivate | undefined> {
   const db = await getDatabase();
 
   const { users } = db.read();
@@ -20,7 +20,9 @@ export async function getByUserName(
   return users.find((user) => user.username === username);
 }
 
-export async function create(data: Omit<User, "id">): Promise<User> {
+export async function create(
+  data: Omit<UserPrivate, "id">
+): Promise<UserPrivate> {
   if (await getByUserName(data.username)) {
     throw new Error("User already exists");
   }
@@ -40,7 +42,9 @@ export async function create(data: Omit<User, "id">): Promise<User> {
   return user;
 }
 
-export async function getOrCreate(data: Omit<User, "id">): Promise<User> {
+export async function getOrCreate(
+  data: Omit<UserPrivate, "id">
+): Promise<UserPrivate> {
   let user = await getByUserName(data.username);
 
   if (user && user.password !== data.password) {

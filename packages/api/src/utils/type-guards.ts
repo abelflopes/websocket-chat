@@ -1,4 +1,4 @@
-import type { AuthSign } from "../types/models";
+import type { AuthSign, SendMessage } from "../types/models";
 
 export function isValidAuthSign(value: unknown): value is AuthSign {
   return (
@@ -10,5 +10,15 @@ export function isValidAuthSign(value: unknown): value is AuthSign {
     "password" in value &&
     typeof value.password === "string" &&
     value.password.length > 0
+  );
+}
+
+export function isValidSendMessage(value: unknown): value is SendMessage {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "content" in value &&
+    typeof value.content === "string" &&
+    value.content.length > 0
   );
 }
