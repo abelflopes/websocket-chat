@@ -5,6 +5,7 @@ import React from "react";
 import { Message } from "@components/message";
 // Store
 import type * as MessagesStore from "@store/modules/messages/types";
+import { EmptyState } from "@components/empty-state";
 
 interface MessagesListProps {
   messages: MessagesStore.Message[];
@@ -16,6 +17,10 @@ export const MessagesList = ({
   currentUser,
 }: Readonly<MessagesListProps>): React.ReactElement => (
   <div className={styles.root}>
+    {messages.length === 0 && (
+      <EmptyState>The chat is empty, send the first message</EmptyState>
+    )}
+
     {messages.map((message, index) => (
       <Message
         key={message.id}
