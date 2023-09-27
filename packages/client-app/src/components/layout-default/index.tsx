@@ -1,25 +1,25 @@
-import styles from "./Default.module.scss";
+import styles from "./index.module.scss";
 /// React
 import React, { useEffect } from "react";
 // Components
-import { type LayoutProps } from "@layouts/types";
 import { GlobalNotifications } from "@components/global-notifications";
 // Store
 import { Store } from "@store/index";
 import { generatePath, useNavigate, useParams } from "react-router";
 import { getRoute } from "@router/utils/get-route";
 
-interface DefaultLayoutProps extends LayoutProps {
+interface LayoutProps {
   pageRestrict: "authenticated" | "not-authenticated" | "none";
+  children: React.ReactNode | React.ReactNode[];
 }
 
-export const DefaultLayout = ({
+export const Layout = ({
   children,
   pageRestrict,
-}: Readonly<DefaultLayoutProps>): React.ReactElement => {
+}: Readonly<LayoutProps>): React.ReactElement => {
   const params = useParams();
   const navigate = useNavigate();
-  const authToken = Store.auth.useAuthToken();
+  const { authToken } = Store.auth.useData();
 
   useEffect(() => {
     if (pageRestrict === "authenticated" && !authToken) {

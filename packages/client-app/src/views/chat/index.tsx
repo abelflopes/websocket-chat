@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // Store
 import { Store } from "@store/index";
 // Components
-import { DefaultLayout } from "@layouts/Default";
+import { Layout } from "@components/layout-default";
 import { ChatForm } from "@components/chat-form";
 import { ChatWrapper } from "@components/chat-wrapper";
 import { MessagesList } from "@components/message-list";
@@ -21,7 +21,7 @@ export const ChatView = (): React.ReactElement => {
   }, [loadUser]);
 
   return (
-    <DefaultLayout pageRestrict="authenticated">
+    <Layout pageRestrict="authenticated">
       <ChatWrapper
         footer={
           <ChatForm
@@ -39,6 +39,6 @@ export const ChatView = (): React.ReactElement => {
           />
         )}
       </ChatWrapper>
-    </DefaultLayout>
+    </Layout>
   );
 };
