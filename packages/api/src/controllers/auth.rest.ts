@@ -18,7 +18,7 @@ export const authSign: ApiRoute<"/auth/sign"> = {
           password: body.password,
         });
 
-        const authToken = await AuthToken.create(user.id);
+        const authToken = await AuthToken.getOrCreate(user.id);
 
         status = 200;
         data = {

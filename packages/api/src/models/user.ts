@@ -1,6 +1,23 @@
 import { getDatabase } from "../db";
 import * as UUID from "uuid";
 import type { UserPrivate, UserPublic } from "../types/models";
+import bcrypt from "bcrypt";
+
+async function hashPassword(value: string): Promise<string> {
+  const saltRounds = 12;
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashed = await bcrypt.hash(value, salt);
+
+  return hashed;
+}
+
+async function passwordIsEqual(
+  plain: string,
+  hashed: string
+): Promise<boolean> {
+  const isEqual = await bcrypt.compare(plain, hashed);
+  return isEqual;
+}
 
 export async function getById(
   id: string,
@@ -71,10 +88,13 @@ export async function getOrCreate(
 ): Promise<UserPrivate> {
   let user = await getByUserName(data.username);
 
-  if (user && user.password !== data.password) {
+  if (user && !(await passwordIsEqual(data.password, user.password))) {
     throw new Error("Wrong username or password");
   } else if (!user) {
-    user = await create(data);
+    user = await create({
+      ...data,
+      password: await hashPassword(data.password),
+    });
   }
 
   return user;

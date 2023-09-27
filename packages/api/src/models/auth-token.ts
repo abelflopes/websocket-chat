@@ -12,6 +12,13 @@ async function getUserId(
   return db.read().authTokens.find((item) => item.value === authToken)?.userId;
 }
 
+async function getToken(
+  userId: AuthToken["userId"]
+): Promise<AuthToken | undefined> {
+  const db = await getDatabase();
+  return db.read().authTokens.find((item) => item.userId === userId);
+}
+
 export async function create(userId: UserPrivate["id"]): Promise<AuthToken> {
   const db = await getDatabase();
 
@@ -29,6 +36,23 @@ export async function create(userId: UserPrivate["id"]): Promise<AuthToken> {
   return data;
 }
 
+export async function getOrCreate(
+  userId: UserPrivate["id"]
+): Promise<AuthToken> {
+  const existingToken = await getToken(userId);
+
+  const existingTokenData = existingToken
+    ? await getData(existingToken.value)
+    : undefined;
+
+  const data =
+    existingToken && existingTokenData?.valid
+      ? existingToken
+      : await create(userId);
+
+  return data;
+}
+
 export async function getData(value: AuthToken["value"] | undefined): Promise<{
   user: UserPublic | undefined;
   authToken: string | undefined;
@@ -37,7 +61,9 @@ export async function getData(value: AuthToken["value"] | undefined): Promise<{
 }> {
   let error: string | undefined;
 
-  const [, authToken] = value?.split("Bearer ") ?? [undefined];
+  const authToken = value?.includes("Bearer")
+    ? value?.split("Bearer ")[1]
+    : value;
 
   if (!authToken) error = "No auth token provided";
 
