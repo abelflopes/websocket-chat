@@ -2,9 +2,8 @@
   "name": "@abelflopes/websocket-chat-client-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "vite --host",
+    "start": "vite --host --port 5050",
     "build": "tsc && vite build",
-    "clean": "rm -rf dist node_modules",
     "test": "jest",
     "lint": "eslint . --ext ts,tsx",
     "preview": "vite preview"

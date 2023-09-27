@@ -9,9 +9,9 @@
     "url": "git+https://github.com/abelflopes/websocket-chat.git"
   },
   "scripts": {
+    "prestart": "npm run build",
     "start": "tsc -p tsconfig.build.json -w",
     "build": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist node_modules",
     "lint": "eslint . --ext ts,tsx"
   },
   "devDependencies": {

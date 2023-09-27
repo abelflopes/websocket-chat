@@ -9,10 +9,10 @@
     "url": "git+https://github.com/abelflopes/websocket-chat.git"
   },
   "scripts": {
+    "prestart": "npm run build:docs & npm run build:types && npm run build:lib",
     "start": "npm-run-all --parallel start:*",
     "start:lib": "tsc -p tsconfig.lib.json -w",
-    "start:server": "npm run build:docs && npm run build:types && ts-node-dev -P tsconfig.server.json --respawn ./src/index.ts",
-    "clean": "rm -rf dist node_modules",
+    "start:server": "ts-node-dev -P tsconfig.server.json --respawn ./src/index.ts",
     "test": "jest",
     "lint": "npm-run-all --parallel lint:*",
     "lint:spec": "redocly lint ./src/openapi.yaml",
