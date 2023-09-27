@@ -1,7 +1,6 @@
 import type { ApiRoute } from "../types/controllers.rest";
 import * as AuthToken from "../models/auth-token";
 import * as Message from "../models/message";
-import * as User from "../models/user";
 import { isValidSendMessage } from "../utils/type-guards";
 import { socketServer } from "../server";
 
@@ -9,9 +8,14 @@ export const user: ApiRoute<"/message"> = {
   endpoint: "/message",
   method: "post",
   action: async ({ headers, body }) => {
-    const authData = await AuthToken.validate(headers.authorization);
+    const authData = await AuthToken.getData(headers.authorization);
 
-    if (!authData.authToken || Boolean(authData.error) || !authData.valid) {
+    if (
+      !authData.authToken ||
+      Boolean(authData.error) ||
+      !authData.valid ||
+      !authData.user
+    ) {
       return {
         status: 400,
         data: {
@@ -29,31 +33,9 @@ export const user: ApiRoute<"/message"> = {
       };
     }
 
-    const userId = await AuthToken.getUserId(authData.authToken);
-
-    if (!userId) {
-      return {
-        status: 400,
-        data: {
-          description: "User not found",
-        },
-      };
-    }
-
-    const user = await User.getById(userId);
-
-    if (!user) {
-      return {
-        status: 400,
-        data: {
-          description: "User info not found",
-        },
-      };
-    }
-
     const message = await Message.create({
-      senderName: user?.username,
-      senderId: userId,
+      senderName: authData.user.username,
+      senderId: authData.user.id,
       content: body.content,
     });
 

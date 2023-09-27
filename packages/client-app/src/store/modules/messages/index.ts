@@ -41,7 +41,7 @@ const createSendAction: ActionCreator<Module, Module["send"]> =
       loading: state.loading + 1,
     }));
 
-    const { authToken } = authStore.getState();
+    const { authToken } = authStore.getState().data;
     const currentUser = userStore.getState().data;
     const tmpMessageId = `tmp-message-${Date.now()}`;
 

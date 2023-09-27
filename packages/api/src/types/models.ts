@@ -9,7 +9,9 @@ export type AuthSign = components["schemas"]["AuthSign"];
 
 export type ApiError = components["schemas"]["Error"];
 
-export type AuthSuccess = components["schemas"]["AuthSuccess"];
+export type Auth = components["schemas"]["Auth"];
+
+export type Validity = components["schemas"]["Validity"];
 
 export type UserPublic = components["schemas"]["User"];
 

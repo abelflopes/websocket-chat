@@ -19,10 +19,12 @@ export const Layout = ({
 }: Readonly<LayoutProps>): React.ReactElement => {
   const params = useParams();
   const navigate = useNavigate();
-  const { authToken } = Store.auth.useData();
+  const { authToken, valid } = Store.auth.useData();
+  const validateAuthToken = Store.auth.useValidate();
+  const refreshAuthToken = Store.auth.useRefresh();
 
   useEffect(() => {
-    if (pageRestrict === "authenticated" && !authToken) {
+    if (pageRestrict === "authenticated" && (!authToken || !valid)) {
       navigate(generatePath(getRoute("login"), params), {
         replace: true,
       });
@@ -33,7 +35,15 @@ export const Layout = ({
         replace: true,
       });
     }
-  }, [pageRestrict, authToken, navigate, params]);
+  }, [pageRestrict, authToken, navigate, params, valid]);
+
+  useEffect(() => {
+    if (authToken) void validateAuthToken(authToken);
+  }, [authToken, validateAuthToken]);
+
+  useEffect(() => {
+    if (!valid && authToken) void refreshAuthToken(authToken);
+  }, [authToken, refreshAuthToken, valid, validateAuthToken]);
 
   return (
     <main className={styles.root}>

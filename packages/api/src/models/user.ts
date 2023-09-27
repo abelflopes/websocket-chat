@@ -1,13 +1,37 @@
 import { getDatabase } from "../db";
 import * as UUID from "uuid";
-import type { UserPrivate } from "../types/models";
+import type { UserPrivate, UserPublic } from "../types/models";
 
-export async function getById(id: string): Promise<UserPrivate | undefined> {
+export async function getById(
+  id: string,
+  data: "public"
+): Promise<UserPublic | undefined>;
+
+export async function getById(
+  id: string,
+  data: "private"
+): Promise<UserPrivate | undefined>;
+
+export async function getById(
+  id: string,
+  data: "private" | "public"
+): Promise<UserPrivate | UserPublic | undefined> {
   const db = await getDatabase();
 
   const { users } = db.read();
 
-  return users.find((user) => user.id === id);
+  const userPrivate: UserPrivate | undefined = users.find(
+    (user) => user.id === id
+  );
+
+  const userPublic: UserPublic | undefined = userPrivate
+    ? {
+        id: userPrivate.id,
+        username: userPrivate.username,
+      }
+    : undefined;
+
+  return data === "private" ? userPrivate : userPublic;
 }
 
 export async function getByUserName(

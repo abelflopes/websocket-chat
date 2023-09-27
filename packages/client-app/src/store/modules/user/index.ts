@@ -31,7 +31,7 @@ const createLoadAction: ActionCreator<Module, Module["load"]> =
     let error: State["error"];
 
     try {
-      const { authToken } = authStore.getState();
+      const { authToken } = authStore.getState().data;
 
       if (!authToken) throw new Error("No auth token provided");
 

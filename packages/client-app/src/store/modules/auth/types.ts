@@ -1,4 +1,4 @@
-import type { AuthSign } from "@abelflopes/websocket-chat-api-client";
+import type { AuthSign, Auth } from "@abelflopes/websocket-chat-api-client";
 
 interface Actions {
   reset: () => void;
@@ -6,10 +6,15 @@ interface Actions {
     username: AuthSign["username"],
     password: AuthSign["password"]
   ) => Promise<void>;
+  validate: (token: Auth["authToken"]) => Promise<void>;
+  refresh: (token: Auth["authToken"]) => Promise<void>;
 }
 
 export interface State {
-  authToken: string | undefined;
+  data: {
+    authToken: string | undefined;
+    valid: boolean;
+  };
   error: string | undefined;
   loading: number;
 }

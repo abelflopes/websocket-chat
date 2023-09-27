@@ -37,7 +37,8 @@ paths:
     post:
       security: []
       tags: [auth, user]
-      summary: Logs in a user or registers in case of non existing
+      summary: Auth sign
+      description: Logs in a user or registers in case of non existing
       requestBody:
         content:
           application/json:
@@ -50,9 +51,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthSuccess'
+                $ref: '#/components/schemas/Auth'
         '400':
           description: Unable to sign in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/validate:
+    post:
+      tags: [auth, user]
+      summary: Auth validate
+      description: Validates an auth token
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Validity'
+        '400':
+          description: Unable to validate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/refresh:
+    post:
+      tags: [auth, user]
+      summary: Auth Refresh
+      description: Refreshes an auth token if the provided one is valid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+        '400':
+          description: Unable to validate
           content:
             application/json:
               schema:
@@ -60,7 +97,8 @@ paths:
   /message:
     post:
       tags: [messages, user]
-      summary: Sends a chat message
+      summary: Message
+      description: Sends a chat message
       requestBody:
         $ref: '#/components/requestBodies/SendMessage'
       responses:
@@ -79,7 +117,8 @@ paths:
   /user:
     get:
       tags: [user]
-      summary: Returns the information of the user self()
+      summary: User
+      description: Returns the information of the user self()
       responses:
         '200':
           description: Successful operation
@@ -103,12 +142,18 @@ components:
           type: string
         password:
           type: string
-    AuthSuccess:
+    Auth:
       type: object
       required: [authToken]
       properties:
         authToken:
           type: string
+    Validity:
+      type: object
+      required: [valid]
+      properties:
+        valid:
+          type: boolean
     Error:
       type: object
       required: [error]

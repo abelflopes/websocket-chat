@@ -4,6 +4,8 @@ import React, { useRef, useEffect } from "react";
 // Utils
 import classNames from "classnames";
 
+const color = `hsl(${Math.floor(Math.random() * 360)}deg 55% 40%)`;
+
 interface MessageProps {
   senderName: string;
   text: string;
@@ -38,6 +40,10 @@ export const Message = ({
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         [styles["join-bottom"]!]: joinBottom,
       })}
+      style={{
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        ["--primary-color" as keyof React.CSSProperties]: color,
+      }}
     >
       <div ref={ref} className={styles.sender}>
         {senderName}
