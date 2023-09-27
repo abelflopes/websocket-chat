@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { GenericApiRoute } from "../types/rest-controllers";
+import type { GenericApiRoute } from "../types/controllers.rest";
 
 export const root: GenericApiRoute<string> = {
   endpoint: "/",

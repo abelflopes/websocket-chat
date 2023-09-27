@@ -20,6 +20,7 @@ export const MessagesList = ({
       {messages.map((message, index) => (
         <Message
           key={message.id}
+          senderName={message.senderName}
           text={message.content}
           type={message.senderId === currentUser?.id ? "sent" : "received"}
           joinTop={Boolean(

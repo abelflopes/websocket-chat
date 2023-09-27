@@ -1,7 +1,7 @@
 import { type Module, type State } from "./types";
 import { type ActionCreator } from "@store/common/types";
 import { createStore } from "@store/common/create-store";
-import * as API from "@abelflopes/websocket-chat-api-client/index";
+import * as API from "@abelflopes/websocket-chat-api-client";
 import { store as authStore } from "@store/modules/auth";
 import { getAuth } from "@store/utils/authorization";
 

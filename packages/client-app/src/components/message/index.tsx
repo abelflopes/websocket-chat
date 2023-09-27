@@ -5,6 +5,7 @@ import React, { useRef, useEffect } from "react";
 import classNames from "classnames";
 
 interface MessageProps {
+  senderName: string;
   text: string;
   type: "sent" | "received";
   joinTop: boolean;
@@ -12,6 +13,7 @@ interface MessageProps {
 }
 
 export const Message = ({
+  senderName,
   text,
   type,
   joinTop,
@@ -37,7 +39,10 @@ export const Message = ({
         [styles["join-bottom"]!]: joinBottom,
       })}
     >
-      {text}
+      <div ref={ref} className={styles.sender}>
+        {senderName}
+      </div>
+      <div className={styles.text}>{text}</div>
     </div>
   );
 };

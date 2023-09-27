@@ -7,7 +7,7 @@
 import type { EventHandlersMap } from "@abelflopes/websocket-chat-api";
 import { io } from "socket.io-client";
 
-const ioSocket = io("http://localhost:3000");
+const ioSocket = io("http://192.168.1.142:3000"); // http://localhost:3000
 
 const on = <T extends keyof EventHandlersMap>(
   event: T,

@@ -1,6 +1,6 @@
 export * from "./types/openapi";
 
-export * from "./types/rest-controllers";
+export * from "./types/controllers.rest";
 
 export * from "./types/socket-events";
 

@@ -4,23 +4,25 @@ interface Authenticated {
   authToken: string;
 }
 
-interface Request {
-  type: "client-request";
-}
-
-interface Response {
-  type: "server-response";
-}
-
 export enum EventContext {
   REQUEST = "request", // Sent from client to server
   RESPONSE = "response", // Sent from server to client
 }
 
+export type EventDataType = "client-request" | "server-response";
+
+export interface EventData<T extends EventDataType, P extends object> {
+  type: T;
+  payload: P;
+}
+
 export interface EventsMap {
   "chat-message": {
-    [EventContext.REQUEST]: Request & Authenticated & SendMessage;
-    [EventContext.RESPONSE]: Response & Message;
+    [EventContext.REQUEST]: EventData<
+      "client-request",
+      Authenticated & SendMessage
+    >;
+    [EventContext.RESPONSE]: EventData<"server-response", Message>;
   };
 }
 

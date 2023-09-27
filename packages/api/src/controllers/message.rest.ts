@@ -1,7 +1,9 @@
-import type { ApiRoute } from "../types/rest-controllers";
+import type { ApiRoute } from "../types/controllers.rest";
 import * as AuthToken from "../models/auth-token";
 import * as Message from "../models/message";
+import * as User from "../models/user";
 import { isValidSendMessage } from "../utils/type-guards";
+import { socketServer } from "../server";
 
 export const user: ApiRoute<"/message"> = {
   endpoint: "/message",
@@ -38,9 +40,26 @@ export const user: ApiRoute<"/message"> = {
       };
     }
 
+    const user = await User.getById(userId);
+
+    if (!user) {
+      return {
+        status: 400,
+        data: {
+          description: "User info not found",
+        },
+      };
+    }
+
     const message = await Message.create({
+      senderName: user?.username,
       senderId: userId,
       content: body.content,
+    });
+
+    socketServer.emit("chat-message", {
+      type: "server-response",
+      payload: message,
     });
 
     return {

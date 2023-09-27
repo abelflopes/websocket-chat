@@ -1,10 +1,10 @@
 import type { Express } from "express";
 // Modules
-import * as root from "./controllers/rest.root";
-import * as auth from "./controllers/rest.auth";
-import * as user from "./controllers/rest.user";
-import * as message from "./controllers/rest.message";
-import * as notFound from "./controllers/rest.not-found";
+import * as root from "./controllers/root.rest";
+import * as auth from "./controllers/auth.rest";
+import * as user from "./controllers/user.rest";
+import * as message from "./controllers/message.rest";
+import * as notFound from "./controllers/not-found.rest";
 
 const routes = [
   ...Object.values(root),

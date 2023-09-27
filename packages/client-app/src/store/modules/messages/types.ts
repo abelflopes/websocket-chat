@@ -3,6 +3,7 @@ import type { Message } from "@abelflopes/websocket-chat-api-client";
 interface Actions {
   reset: () => void;
   add: (message: Message) => void;
+  remove: (id: Message["id"]) => void;
   send: (content: string) => Promise<void>;
 }
 

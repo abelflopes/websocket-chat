@@ -2,7 +2,7 @@ import { type Module, type State } from "./types";
 import { type ActionCreator } from "@store/common/types";
 import { createPersistedStore } from "@store/common/create-store";
 import { store as notificationsStore } from "@store/modules/notifications";
-import * as API from "@abelflopes/websocket-chat-api-client/index";
+import * as API from "@abelflopes/websocket-chat-api-client";
 
 // Initial State
 

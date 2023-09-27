@@ -1,4 +1,4 @@
-import type { GenericApiRoute } from "../types/rest-controllers";
+import type { GenericApiRoute } from "../types/controllers.rest";
 
 export const notFound: GenericApiRoute<{ error: string }> = {
   endpoint: "*",

@@ -125,11 +125,13 @@ components:
           type: string
     Message:
       type: object
-      required: [id, senderId, content]
+      required: [id, senderId, senderName, content]
       properties:
         id:
           type: string
         senderId:
+          type: string
+        senderName:
           type: string
         content:
           type: string

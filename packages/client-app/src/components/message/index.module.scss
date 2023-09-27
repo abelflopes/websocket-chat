@@ -1,14 +1,24 @@
 .root {
-  background-color: var(--background-color);
-  color: var(--color);
   margin-left: var((--margin-left));
   margin-right: var((--margin-right));
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.text {
+  background-color: var(--background-color);
+  color: var(--color);
   border-radius: 16px;
   padding: 8px 10px;
   line-height: 16px;
   word-break: break-word;
-  margin-top: 4px;
-  margin-bottom: 4px;
+}
+
+.sender {
+  color: #aaa;
+  font-size: 10px;
+  line-height: 14px;
+  padding: 0 5px;
 }
 
 .received {
@@ -18,29 +28,37 @@
 }
 
 .sent {
-  --background-color: #37a4ba;
+  --background-color: var(--primary-color);
   --color: #eee;
   --margin-left: auto;
+
+  .sender {
+    text-align: right;
+  }
 }
 
-.join-bottom.sent {
+.join-bottom.sent .text {
   border-bottom-right-radius: 0;
 }
 
-.join-top.sent {
+.join-top.sent .text {
   border-top-right-radius: 0;
 }
 
-.join-bottom.received {
+.join-bottom.received .text {
   border-bottom-left-radius: 0;
 }
 
-.join-top.received {
+.join-top.received .text {
   border-top-left-radius: 0;
 }
 
 .join-top {
   margin-top: 0;
+
+  .sender {
+    display: none;
+  }
 }
 
 .join-bottom {

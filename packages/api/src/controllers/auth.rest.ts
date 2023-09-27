@@ -1,4 +1,4 @@
-import type { ApiRoute } from "../types/rest-controllers";
+import type { ApiRoute } from "../types/controllers.rest";
 import * as User from "../models/user";
 import * as AuthToken from "../models/auth-token";
 import type { AuthSuccess, ApiError } from "../types/models";
