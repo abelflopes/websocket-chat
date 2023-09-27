@@ -2,7 +2,7 @@
   "name": "@abelflopes/websocket-chat-client-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "vite --host --port 5050",
+    "start": "vite --host",
     "build": "tsc && vite build",
     "test": "jest",
     "lint": "eslint . --ext ts,tsx",
@@ -11,6 +11,7 @@
   "devDependencies": {
     "@abelflopes/eslint-config-tsr-pro": "^1.0.1",
     "@abelflopes/websocket-chat-api-client": "^1.0.0",
+    "@abelflopes/websocket-chat-config": "^1.0.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react-swc": "^3.3.2",

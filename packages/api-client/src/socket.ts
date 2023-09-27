@@ -6,8 +6,9 @@
 
 import type { EventHandlersMap } from "@abelflopes/websocket-chat-api";
 import { io } from "socket.io-client";
+import { API_HOST } from "@abelflopes/websocket-chat-config/config.json";
 
-const ioSocket = io("http://192.168.1.142:3000"); // http://localhost:3000
+const ioSocket = io(API_HOST);
 
 const on = <T extends keyof EventHandlersMap>(
   event: T,

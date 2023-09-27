@@ -23,6 +23,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
+    "@abelflopes/websocket-chat-config": "^1.0.0",
     "socket.io-client": "4.7.2"
   }
 }
