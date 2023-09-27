@@ -4,7 +4,7 @@ import React from "react";
 
 interface ChatWrapperProps {
   footer: React.ReactElement;
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactNode | React.ReactNode[];
 }
 
 export const ChatWrapper = ({

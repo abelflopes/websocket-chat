@@ -4,6 +4,7 @@ import { createStore } from "@store/common/create-store";
 import * as API from "@abelflopes/websocket-chat-api-client";
 import { store as authStore } from "@store/modules/auth";
 import { getAuth } from "@store/utils/authorization";
+import { store as notificationsStore } from "@store/modules/notifications";
 
 // Initial State
 
@@ -22,21 +23,40 @@ const createResetAction: ActionCreator<Module, Module["reset"]> =
 
 const createLoadAction: ActionCreator<Module, Module["load"]> =
   (set) => async () => {
-    const { authToken } = authStore.getState();
-
-    if (!authToken) throw new Error("No auth token provided");
-
     set((state) => ({
       loading: state.loading + 1,
     }));
 
-    const user = await API.rest.GET("/user", getAuth(authToken));
+    let data: State["data"] | undefined;
+    let error: State["error"];
+
+    try {
+      const { authToken } = authStore.getState();
+
+      if (!authToken) throw new Error("No auth token provided");
+
+      const response = await API.rest.GET("/user", getAuth(authToken));
+
+      data = response.data;
+      error = response.error?.description;
+    } catch (catchError) {
+      error =
+        catchError instanceof Error ? catchError.message : String(catchError);
+    }
 
     set((state) => ({
-      data: user.data,
-      error: user.error?.description,
+      data,
+      error,
       loading: state.loading - 1,
     }));
+
+    if (error) {
+      notificationsStore.getState().add({
+        type: "error",
+        title: "Unable to fetch user data",
+        description: error,
+      });
+    }
   };
 
 // Data

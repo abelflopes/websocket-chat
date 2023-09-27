@@ -49,7 +49,7 @@ const createSendAction: ActionCreator<Module, Module["send"]> =
     let error: State["error"];
 
     try {
-      if (!currentUser) throw new Error("Missing current user data");
+      if (!currentUser) throw new Error("Unable to fetch user data");
       if (!authToken) throw new Error("No auth token provided");
 
       // Socket can be used but does not provide proper error handling
@@ -63,6 +63,7 @@ const createSendAction: ActionCreator<Module, Module["send"]> =
       get().add({
         id: tmpMessageId,
         content: text,
+        senderName: currentUser.username,
         senderId: currentUser.id,
       });
 

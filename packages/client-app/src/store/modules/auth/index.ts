@@ -9,6 +9,7 @@ import * as API from "@abelflopes/websocket-chat-api-client";
 const initialState: State = {
   authToken: undefined,
   error: undefined,
+  loading: 0,
 };
 
 // Actions
@@ -20,25 +21,39 @@ const createResetAction: ActionCreator<Module, Module["reset"]> =
 
 const createSignAction: ActionCreator<Module, Module["sign"]> =
   (set) => async (username, password) => {
-    const { data, error } = await API.rest.POST("/auth/sign", {
-      body: {
-        username,
-        password,
-      },
-    });
-
-    set(() => ({
-      authToken: data?.authToken,
-      error: error?.description,
+    set((state) => ({
+      loading: state.loading + 1,
     }));
 
-    // API.socket.emit("chat-message", { message });
+    let authToken: State["authToken"] | undefined;
+    let error: State["error"];
 
-    if (error?.description) {
+    try {
+      const response = await API.rest.POST("/auth/sign", {
+        body: {
+          username,
+          password,
+        },
+      });
+
+      authToken = response.data?.authToken;
+      error = response.error?.description;
+    } catch (catchError) {
+      error =
+        catchError instanceof Error ? catchError.message : String(catchError);
+    }
+
+    set((state) => ({
+      authToken,
+      error,
+      loading: state.loading - 1,
+    }));
+
+    if (error) {
       notificationsStore.getState().add({
         type: "error",
-        title: "Error",
-        description: error?.description,
+        title: "Unable to authenticate user",
+        description: error,
       });
     }
   };

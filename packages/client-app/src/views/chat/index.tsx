@@ -9,6 +9,9 @@ import { ChatWrapper } from "@components/chat-wrapper";
 import { MessagesList } from "@components/message-list";
 
 export const ChatView = (): React.ReactElement => {
+  const currentUser = Store.user.useData();
+  const userError = Store.user.useError();
+  const messageError = Store.messages.useError();
   const messages = Store.messages.useData();
   const sendMessage = Store.messages.useSend();
   const loadUser = Store.user.useLoad();
@@ -22,13 +25,19 @@ export const ChatView = (): React.ReactElement => {
       <ChatWrapper
         footer={
           <ChatForm
+            error={messageError ?? userError}
             onSend={(message) => {
               void sendMessage(message);
             }}
           />
         }
       >
-        <MessagesList messages={messages} />
+        {currentUser && (
+          <MessagesList
+            messages={messages}
+            currentUser={currentUser.username}
+          />
+        )}
       </ChatWrapper>
     </DefaultLayout>
   );

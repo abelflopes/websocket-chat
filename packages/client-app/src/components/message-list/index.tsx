@@ -5,34 +5,32 @@ import React from "react";
 import { Message } from "@components/message";
 // Store
 import type * as MessagesStore from "@store/modules/messages/types";
-import { Store } from "@store/index";
+
 interface MessagesListProps {
   messages: MessagesStore.Message[];
+  currentUser: string;
 }
 
 export const MessagesList = ({
   messages,
-}: Readonly<MessagesListProps>): React.ReactElement => {
-  const currentUser = Store.user.useData();
-
-  return (
-    <div className={styles.root}>
-      {messages.map((message, index) => (
-        <Message
-          key={message.id}
-          senderName={message.senderName}
-          text={message.content}
-          type={message.senderId === currentUser?.id ? "sent" : "received"}
-          joinTop={Boolean(
-            messages[index - 1] &&
-              messages[index - 1]?.senderId === message.senderId
-          )}
-          joinBottom={Boolean(
-            messages[index + 1] &&
-              messages[index + 1]?.senderId === message.senderId
-          )}
-        />
-      ))}
-    </div>
-  );
-};
+  currentUser,
+}: Readonly<MessagesListProps>): React.ReactElement => (
+  <div className={styles.root}>
+    {messages.map((message, index) => (
+      <Message
+        key={message.id}
+        senderName={message.senderName}
+        text={message.content}
+        type={message.senderName === currentUser ? "sent" : "received"}
+        joinTop={Boolean(
+          messages[index - 1] &&
+            messages[index - 1]?.senderId === message.senderId
+        )}
+        joinBottom={Boolean(
+          messages[index + 1] &&
+            messages[index + 1]?.senderId === message.senderId
+        )}
+      />
+    ))}
+  </div>
+);
